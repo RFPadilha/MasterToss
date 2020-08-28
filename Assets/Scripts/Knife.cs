@@ -24,13 +24,11 @@ public class Knife : MonoBehaviour
    
     void OnCollisionEnter2D(Collision2D collider)
     {
-        if (collider.gameObject.CompareTag("Target"))//se a colisão da faca for com o alvo
+        if (collider.gameObject.CompareTag("Target") && this.gameObject.CompareTag("Knife"))//se a colisão da faca for com o alvo
         {
-            CameraShake.Shake(0.5f, 1);//vibra a camera ao acertar o alvo
+            CameraShake.Shake(0.2f, 0.5f);//vibra a camera ao acertar o alvo
 
             transform.SetParent(collider.transform, true);//muda o parent object da faca
-            m_Rigidbody.velocity = Vector2.zero;//impede que a faca continue se movendo após a colisao
-            m_Rigidbody.freezeRotation = true;//impede que a faca gire no próprio eixo
 
             Score.points++;//aumenta pontuação
             audioSource.PlayOneShot(targetHit, 1f);//emite som apropriado
@@ -39,6 +37,7 @@ public class Knife : MonoBehaviour
             if (AmmoDisplay.knivesLeft==0)
             {
                 SceneManager.LoadScene(1);//ao atirar todas as facas, recomeça a cena
+                StageProgress.stage++;//avança de fase
             }
 
         }
@@ -46,14 +45,13 @@ public class Knife : MonoBehaviour
         else if (collider.gameObject.CompareTag("AttachedKnife"))//se a faca atingir uma faca no alvo
         {
             audioSource.PlayOneShot(knifeHit, 1f);
-            FindObjectOfType<GameManager>().GameOver();
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(2);
         }
         
     }
      void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.CompareTag("Apple"))//se a faca atingir a maçã
+        if (collider.gameObject.CompareTag("Apple") && this.gameObject.CompareTag("Knife"))//se a faca atingir a maçã
         {
             AppleScore.ApplePoints++;
             audioSource.PlayOneShot(appleSlice, 1f);

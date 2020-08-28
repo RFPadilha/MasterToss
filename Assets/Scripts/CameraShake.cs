@@ -5,20 +5,19 @@ using UnityEngine;
 public class CameraShake : MonoBehaviour
 {
     private Vector3 iniPosition;//salva posição inicial da camera
-    float intervalo = 0f;//contador de tempo
+    float intervalo = 0f;//duração final da vibração
     public static CameraShake instance;//necessário para acesso de fora do script
 
     void Awake()//inicialização
     {
-        iniPosition = transform.localPosition;
+        iniPosition = transform.localPosition;//importante pra quando parar a vibração
         instance = this;
     }
 
     public static void Shake(float tempo, float intensidade)
     {
-        instance.StopAllCoroutines();
-        instance.StartCoroutine(instance.shakeFunction(tempo, intensidade));
-        Debug.Log("Camera should have shook");//camera vibra somente na primeira faca, consertarei depois
+        instance.StopAllCoroutines();//encerra vibrações anteriores
+        instance.StartCoroutine(instance.shakeFunction(tempo, intensidade));//inicia uma nova
     }
 
     public IEnumerator shakeFunction(float tempo, float intensidade)//o script da vibração em si
@@ -32,6 +31,7 @@ public class CameraShake : MonoBehaviour
 
         }
         transform.localPosition = iniPosition;//encerra a vibração da camera
+        intervalo = 0f;//reseta o intervalo, para que a próxima faca faça a camera vibrar
         
     }
 }  
