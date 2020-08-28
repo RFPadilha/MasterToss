@@ -4,31 +4,34 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
-    public static float tempo = 1f;
-    private float intensidade = 1f;
-    private float fadeAway = 1f;
-    Vector3 initialPosition;
-    void OnEnable()
+    private Vector3 iniPosition;//salva posição inicial da camera
+    float intervalo = 0f;//contador de tempo
+    public static CameraShake instance;//necessário para acesso de fora do script
+
+    void Awake()//inicialização
     {
-        initialPosition = transform.localPosition;
+        iniPosition = transform.localPosition;
+        instance = this;
     }
 
-    void Update()
+    public static void Shake(float tempo, float intensidade)
     {
-        if (tempo > 0)
-        {
-            transform.localPosition = initialPosition + Random.insideUnitSphere * intensidade;
-            tempo -= Time.deltaTime * fadeAway;
-        }
-        else
-        {
-            tempo = 0f;
-            transform.localPosition = initialPosition;
-        }
+        instance.StopAllCoroutines();
+        instance.StartCoroutine(instance.shakeFunction(tempo, intensidade));
+        Debug.Log("Camera should have shook");//camera vibra somente na primeira faca, consertarei depois
     }
-    public static void TriggerShake()
+
+    public IEnumerator shakeFunction(float tempo, float intensidade)//o script da vibração em si
     {
-        tempo = 2.0f;
-        Debug.Log("Camera Shakes");
+        
+        while (intervalo < tempo)
+        {
+            transform.localPosition = iniPosition + (Random.insideUnitSphere * intensidade);//é o que, de fato, vibra a camera, usando os valores acima
+            intervalo += Time.deltaTime;//controla o tempo decorrido
+            yield return null;
+
+        }
+        transform.localPosition = iniPosition;//encerra a vibração da camera
+        
     }
-}
+}  

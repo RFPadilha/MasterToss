@@ -22,5 +22,6 @@ public class PlayerControls : MonoBehaviour
             activeKnife.GetComponent<Rigidbody2D>().velocity = new Vector2(0, speed);//impõe aceleração na faca, no eixo Y global
             AmmoDisplay.knivesLeft--;
         }
+        
     }
 }
