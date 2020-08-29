@@ -22,68 +22,66 @@
 
 
 ## Descrição dos scripts
+A seguir, todos os scripts implementados
 - Script do jogador
-    - (DONE) ao receber input, impõe velocidade vertical em uma instância da faca
+    - Ao receber input, impõe velocidade vertical em uma instância da faca
         - também ajusta o contador de facas
         
 - Script da faca
-    - (DONE) permanece com o alvo, girando de acordo
+    - Permanece com o alvo, girando de acordo
         - problemas com joints e colisões
         - resolvido mudando o “parent object” da faca
-    - (DONE) arremessar múltiplas facas
+    - Arremessar múltiplas facas
         - resolvido instanciando facas novas com input
-    - (DONE) ao colidir com outra faca, encerra o jogo
-    - (DONE) determina quando passa de fase ao esgotar as facas
-    - (DONE) efeitos sonoros ao acertar alvos diferentes
-        - maçã
-        - alvo
-        - outra faca
+    - Ao colidir com outra faca, encerra o jogo
+    - Determina quando passa de fase ao esgotar as facas
+    - Efeitos sonoros ao acertar objetos diferentes
 
 
 - Script do alvo:
-    - (DONE) girar por uma quantidade aleatória de tempo, invertendo direções
+    - Girar por uma quantidade aleatória de tempo, invertendo direções
         - resolvido com System.Random()
         - inverte aleatoriamente baseado em um dado de 100 lados
-    - (DONE) iniciar com quantidade aleatória de facas/maçãs
+    - Iniciar com quantidade aleatória de facas/maçãs
         - problemas em encontrar a angulação/posição correta das facas (17:00+)
         - resolvido manualmente(19:15)
 
 
 - Script da maçã
-    - (DONE) objeto destrutível
-    - (DONE) gira de acordo com o alvo que está preso
-    - (DONE) pontuação no HUD
+    - Objeto destrutível
+    - Gira de acordo com o alvo que está preso
+    - Pontuação no HUD
 
 
 - Script do HUD
-    - (DONE) pontuação conforme as facas permanecem no alvo
+    - Pontuação conforme as facas permanecem no alvo
         - feito com script que controla o texto no HUD
-    - (DONE) contador de alvos destruídos (contador de fases)
-    - (DONE) pontuação de maçãs, conforme elas são destruídas
+    - Contador de alvos destruídos (contador de fases)
+    - Pontuação de maçãs, conforme elas são destruídas
         - feito com detecção de colisões
-    - (DONE) munição de facas conforme jogador as atira
+    - Munição de facas conforme jogador as atira
     
 - To fix
-    - (DONE) faca girando após acertar maçã
+    - Faca girando após acertar maçã
         - feito transformando o colisor da maçã em trigger
-    - (DONE) tela de game over
-    - (DONE) alvo que não parece um alvo
+    - Tela de game over
+    - Alvo que não parece um alvo
         - transformado em 2d, usando sprite de alvo
-    - (DONE) sons e imagens melhores
+    - Sons e imagens melhores
         - terminado de editar a faixa de som
         
 ## Toques Finais
 - Conseguir novas imagens
-    - (DONE) alvo
-    - (DONE) faca adequada
-    - (DONE) backgrounds
+    - Alvo
+    - Faca adequada
+    - Backgrounds
 - Ajustar textos e layout
-    - (DONE) main menu
-    - (DONE) in-game
-    - (DONE) game over
-    - (DONE) Botões
+    - Main menu
+    - In-game
+    - Game over
+    - Botões
 - Música de fundo
-    - (DONE) in-game
+    - In-game
         
 ## Relatório de progresso:
 
