@@ -26,7 +26,7 @@ public class Knife : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Target") && this.gameObject.CompareTag("Knife"))//se a colisão da faca for com o alvo
         {
-            CameraShake.Shake(0.2f, 0.5f);//vibra a camera ao acertar o alvo
+            CameraShake.Shake(0.1f, 0.1f);//vibra a camera ao acertar o alvo
 
             transform.SetParent(collider.transform, true);//muda o parent object da faca
 
