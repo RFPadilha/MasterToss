@@ -1,8 +1,6 @@
-# MasterToss
-Knife Hit clone game
+# “Knife Hit” Clone
 
-
-## Descrição do jogo original:
+## Descrição do jogo Original:
 - “Tap” na tela, ou clique pra arremessar a faca na vertical (unica interação do jogador)
 
 
@@ -72,18 +70,32 @@ Knife Hit clone game
     - (DONE) alvo que não parece um alvo
         - transformado em 2d, usando sprite de alvo
     - (DONE) sons e imagens melhores
-    
-    
-# Relatório:
+        - terminado de editar a faixa de som
+        
+## Toques Finais
+- Conseguir novas imagens
+    - (DONE) alvo
+    - (DONE) faca adequada
+    - (DONE) backgrounds
+- Ajustar textos e layout
+    - (DONE) main menu
+    - (DONE) in-game
+    - (DONE) game over
+    - (DONE) Botões
+- Música de fundo
+    - (DONE) in-game
+        
+## Relatório de progresso:
 
 27/08/2020:
 
 - 12:30 - respondido o e-mail, início do projeto
 - 14:30 - término do set-up, com os objetos base e o repositório no github, interrupção no processo
 - 16:00 - continuação, início dos scripts
-- 17:00 - script da faca completo
-- 17:30 - script da maçã completo
-- 19:10 - Interrupção no processo
+- 19:10 - término das atividades do dia
+    - script da faca completo
+    - script da maçã completo
+    
     - script do HUD incompleto
         - resta o contador de fases/boss
     - script do alvo incompleto
@@ -95,12 +107,18 @@ Knife Hit clone game
 
 28/08/2020
 
-- 11:00 - retomada do desenvolvimento, adicionados efeitos de som
-- 12:00 - tentativa de implementar vibração na câmera ao acertar a faca, funciona só na primeira por enquanto
-- 12:10 - consertado o problema com encerrar o jogo ao acertar outra faca
+- 11:04 - retomada do desenvolvimento, adicionados efeitos de som
+- 12:16 - tentativa de implementar vibração na câmera ao acertar a faca, funciona só na primeira por enquanto
+- 12:35 - consertado o problema com encerrar o jogo ao acertar outra faca
 - 13:00 - implementado menu inicial, e menu de opções (atualmente só ajusta o volume)
 - 13:10 - inserido música de fundo
 - 13:30 - audios ajustados para responder ao controle de volume no menu inicial
-- 14:30 - terminado alguns bug fixes, interrupção no processo, "camera shake" funciona propriamente
+- 14:30 - terminado alguns bug fixes, interrupção no processo
 - 16:00 - retomada do desenvolvimento, corrigidos erros na tela de game over
-- 19:20 - limpando código desnecessário e ajustes finais
+- 19:18 - limpando código desnecessário e ajustes finais
+- 20:57 - Ajustes de áudio finalizados
+- 21:54 - Ajustes finais encerrados
+    
+
+
+
