@@ -42,8 +42,11 @@ public class Target : MonoBehaviour
                     gameObject.transform) ;//coloca as facas no alvo em posições aleatórias
                 attachedKnife.transform.rotation = new Quaternion(0, 0, 90 * i, 0);
                 attachedKnife.tag = "AttachedKnife";
+
                 //problemas com o posicionamento e angulação relativos da faca
+
             }//controla o spawn de facas
+
             for (int j = 0; j < numberOfApples; j++)
             {
                 float X = 1.3f;
