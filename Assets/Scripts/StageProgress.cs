@@ -15,7 +15,7 @@ public class StageProgress : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (FindObjectOfType<Target>().numberOfApples >= 2)
+        if (FindObjectOfType<Target>().numberOfApples > 3)
         {
             stageText.text = ("BOSS");
         }else stageText.text = ("Level: "+ (stage+1));

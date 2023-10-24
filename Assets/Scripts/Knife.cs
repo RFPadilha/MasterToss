@@ -31,23 +31,29 @@ public class Knife : MonoBehaviour
             transform.SetParent(collider.transform, true);//muda o parent object da faca
 
             Score.points++;//aumenta pontuação
-            audioSource.PlayOneShot(targetHit, 1f);//emite som apropriado
+            audioSource.PlayOneShot(targetHit, .5f);//emite som apropriado
             gameObject.tag = "AttachedKnife";//altera a "tag" do objeto para melhor diferenciação dos objetos
 
-            if (AmmoDisplay.knivesLeft==0)
+            if (AmmoDisplay.knivesLeft == 0)
             {
-                SceneManager.LoadScene(1);//ao atirar todas as facas, recomeça a cena
-                StageProgress.stage++;//avança de fase
+                Target.Instance.ResetGame();
             }
 
         }
 
         else if (collider.gameObject.CompareTag("AttachedKnife"))//se a faca atingir uma faca no alvo
         {
+            m_Rigidbody.velocity = Vector2.zero;
             audioSource.PlayOneShot(knifeHit, 1f);
-            SceneManager.LoadScene(2);
+            Invoke("EndGame", .1f);
+            Time.timeScale = 0.1f;
         }
         
+    }
+    void EndGame()
+    {
+        SceneManager.LoadScene(2);
+        Time.timeScale = 1f;
     }
      void OnTriggerEnter2D(Collider2D collider)
     {
@@ -55,6 +61,10 @@ public class Knife : MonoBehaviour
         {
             AppleScore.ApplePoints++;
             audioSource.PlayOneShot(appleSlice, 1f);
+            Object.Destroy(collider.gameObject);//aumenta pontos e remove maçã
+        }
+        if (collider.gameObject.CompareTag("Apple") && this.gameObject.CompareTag("AttachedKnife"))
+        {
             Object.Destroy(collider.gameObject);//aumenta pontos e remove maçã
         }
     }

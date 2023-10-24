@@ -12,13 +12,12 @@ public class AmmoDisplay : MonoBehaviour
     void Start()
     {
         score = GetComponent<TextMeshProUGUI>();
-        knivesLeft = random.Next(5, 10);//jogador recebe entre 5 e 10 facas para arremessar
+        knivesLeft = 3;
     }
 
     // Update is called once per frame
     void Update()
     {
         score.text = ("Ammo: " + knivesLeft);
-        
     }
 }

@@ -7,11 +7,6 @@ public class PlayerControls : MonoBehaviour
     public float speed;
     public GameObject knife;//objeto a ser instanciado várias vezes
     
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {

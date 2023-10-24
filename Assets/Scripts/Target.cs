@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static UnityEditor.LightmapEditorSettings;
 
 public class Target : MonoBehaviour
 {
+    public static Target Instance { get; private set; }
     public float rotSpeed;//velocidade da rotação
     public float intervalo;//intervalo entre as decisões de mudança de rotação
     bool clockwise;//sentido da rotação
@@ -12,90 +15,92 @@ public class Target : MonoBehaviour
     public GameObject extraApples;
 
     public int numberOfApples;
+    int numberOfKnives;
+    public float currentSpeed=0f;
+    public float maxSpeed = 100f;
+    public float damping = 10;
+    float spinTimer = 5f;
+    float currentTimer = 5f;
     void Start()
     {
-        clockwise = true;//começa em sentido horario
-        if (StageProgress.stage > 0)//se passou da primeira fase
-        {
-            System.Random d4 = new System.Random();
-            int numberOfKnives = d4.Next(1, 4) - 1;//inicializa com um numero aleatorio de facas no alvo, entre 0 e 3
-            numberOfApples = d4.Next(1, 3) - 1;//inicializa com um numero aleatorio de maçãs, além da que já foi colocada
-           
-            for (int i = 0; i < numberOfKnives; i++)
-            {
-                float posX=0;
-                float posY=0;
-
-                GameObject attachedKnife;
-                if (i == 1)
-                {
-                    posX = 0;
-                    posY = 3.3f;
-                }else if (i == 2)
-                {
-                    posX = 1.65f;
-                    posY = 1.65f;
-                }
-
-                attachedKnife = Instantiate(startingKnives, new Vector2(posX, posY),
-                    Quaternion.LookRotation(Vector3.forward),//garante que a faca esteja na orientação certa
-                    gameObject.transform) ;//coloca as facas no alvo em posições aleatórias
-                attachedKnife.transform.rotation = new Quaternion(0, 0, 90 * i, 0);
-                attachedKnife.tag = "AttachedKnife";
-
-                //problemas com o posicionamento e angulação relativos da faca
-
-            }//controla o spawn de facas
-
-            for (int j = 0; j < numberOfApples; j++)
-            {
-                float X = 1.3f;
-                float Y = 2.83f;
-
-                GameObject apples;
-                if (j == 1)
-                {
-                    X = -1.3f;
-                    Y = 2.83f;
-                }else if (j == 2)
-                {
-                    X = 1.45f;
-                    Y = 0.55f;
-                }//manualmente seleciona a posição das maçãs extras
-
-
-                apples = Instantiate(extraApples, new Vector2(X, Y),
-                    Quaternion.LookRotation(Vector3.forward),//garante que a faca esteja na orientação certa
-                    gameObject.transform);//coloca as facas no alvo em posições aleatórias
-                apples.transform.rotation = new Quaternion(0, 0, 120 * j, 0);
-                apples.tag = "Apple";//tag é importante pra contabilizar a pontuação de maçãs
-
-            }//controla o spawn de maças
-            
-        }
+        Instance = this;
+        SetGame();
     }
     // Update is called once per frame
     void Update()
     {
-        if (clockwise == true)
+        currentSpeed = Mathf.Clamp(currentSpeed + Time.deltaTime * damping * (clockwise ? 1 : -1), -maxSpeed, maxSpeed);
+
+        transform.Rotate(0, 0, Time.deltaTime * currentSpeed, Space.Self);
+        currentTimer -= Time.deltaTime;
+        if(currentTimer <= 0)
         {
-            transform.Rotate(0, 0, Time.deltaTime * rotSpeed, Space.Self);
+            RandomSpin();
+            currentTimer = spinTimer;
         }
-        else transform.Rotate(0, 0, -(Time.deltaTime * rotSpeed), Space.Self);
-        RandomSpin();
-        
-            
+    
+    }
+
+
+    void SetGame()
+    {
+        clockwise = true;//começa em sentido horario
+        if (StageProgress.stage >= 0)
+        {
+            if (StageProgress.stage > 1) numberOfKnives = StageProgress.stage - 1;
+            else numberOfKnives = 0;
+            numberOfApples = StageProgress.stage + 1;
+
+            SpawnObject(startingKnives, numberOfKnives, "AttachedKnife", 0f);
+            SpawnObject(extraApples, numberOfApples, "Apple", 180f);
+        }
+    }
+    public void ResetGame()
+    {
+        Time.timeScale = 0.1f;
+        System.Random rand = new System.Random();
+        DestroyChildrenWithTag("Apple");
+        DestroyChildrenWithTag("AttachedKnife");
+        StageProgress.stage++;//avança de fase
+        SetGame();
+        AmmoDisplay.knivesLeft = numberOfApples*(StageProgress.stage+1);
+        Invoke("ResetTime", .1f);
+    }
+    void ResetTime()
+    {
+        Time.timeScale = 1f;
     }
     void RandomSpin()//determina sentido da rotação aleatoriamente, 1% de chance de inverter sentido
     {
         System.Random d100 = new System.Random();
         int roll = d100.Next(1,100);//rola um dado de 100 lados pra determinar sentido
-        if (roll ==1)
+        if (roll <=50)
         {
             clockwise = !clockwise;
         }
     }
+    public void DestroyChildrenWithTag(string tag)
+    {
+        // compare children of game object
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            // only destroy tagged object
+            if (transform.GetChild(i).gameObject.CompareTag(tag))
+                Destroy(transform.GetChild(i).gameObject);
+        }
+    }
+    void SpawnObject(GameObject obj, int amount, string tag, float angleOffset)
+    {
+        for (int j = 0; j < amount; j++)
+        {
+            GameObject newObject = Instantiate(obj);
+            newObject.transform.RotateAround(transform.position, Vector3.forward, (360f / amount) * j);
+            newObject.transform.parent = transform;
+            newObject.transform.rotation = Quaternion.Euler(0, 0, ((360f / amount) * j) + angleOffset);
+            newObject.tag = tag;
 
+        }
+    }
     
 
 }
