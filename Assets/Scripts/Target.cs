@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.LightmapEditorSettings;
 
 public class Target : MonoBehaviour
 {
